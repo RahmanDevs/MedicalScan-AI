@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedAI-CV &mdash; Hospital Clinical Dashboard</title>
+
+    <!-- Google Fonts: Changa One & Sora -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Sora:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5.3.3 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Dashboard Dedicated Stylesheet -->
+    <link rel="stylesheet" href="assets/css/dashboard.css" />
+  </head>
+  <body>
+    <!-- ==============================================
+         TOPBAR: BRAND, POC ROLE SWITCHER, PROFILE
+         ============================================== -->
+    <header class="dash-topbar">
+      <!-- Left: Brand Logo & Title -->
+      <a href="dashboard.html" class="topbar-brand">
+        <img
+          src="assets/img/brand.png"
+          alt="MedAI-CV Logo"
+          width="38"
+          height="38"
+        />
+        <div>
+          <h1 class="brand-text-title">MedAI-CV</h1>
+          <span class="brand-text-sub">Clinical Vision Platform</span>
+        </div>
+      </a>
+
+      <!-- Center: Role Switcher (SQLite3 Backed) -->
+      <div class="role-switcher-container">
+        <span class="role-switcher-label d-none d-lg-inline">Role:</span>
+        <button
+          type="button"
+          class="role-pill-btn active"
+          data-role="doctor"
+          title="Role Dokter Radiolog"
+        >
+          <i class="bi bi-heart-pulse-fill"></i>
+          <span>Dokter</span>
+        </button>
+        <button
+          type="button"
+          class="role-pill-btn"
+          data-role="admin"
+          title="Role Admin IT & PACS"
+        >
+          <i class="bi bi-shield-lock-fill"></i>
+          <span>Admin</span>
+        </button>
+        <button
+          type="button"
+          class="role-pill-btn"
+          data-role="operator"
+          title="Role Operator Model MLOps"
+        >
+          <i class="bi bi-cpu-fill"></i>
+          <span>Operator</span>
+        </button>
+      </div>
+
+      <!-- Right: Database Status & User Profile -->
+      <div class="topbar-actions">
+        <!-- Live Database Status Pill -->
+        <div
+          class="badge-system-live d-none d-md-inline-flex"
+          id="dbStatusIndicator"
+        >
+          <span class="status-dot"></span>
+          <!-- Notes: Dynamic status -->
+          <span>Database Active</span>
+        </div>
+
+        <div class="user-profile-widget">
+          <div class="user-avatar">DR</div>
+          <div class="d-none d-sm-block text-start">
+            <div class="fw-bold" style="font-size: 0.82rem" id="userNameText">
+              dr. Farhan Malik, Sp.Rad
+            </div>
+            <span class="badge" style="font-size: 0.68rem" id="userRoleBadge"
+              >Dokter Radiolog</span
+            >
+          </div>
+          <a
+            href="index.html"
+            class="btn btn-sm btn-outline-secondary ms-2 text-danger border-0"
+            title="Keluar"
+          >
+            <i class="bi bi-box-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==============================================
+         DASHBOARD 3-COLUMN WORKFLOW LAYOUT
+         ============================================== -->
+    <div class="dash-layout">
+      <!-- LEFT COLUMN: SIDEBAR MENU (ROLE-BASED ACCESS CONTROL) -->
+      <aside class="dash-sidebar">
+        <div>
+          <!-- Group 1: Modul Dokter -->
+          <div class="sidebar-menu-title">Klinis (Dokter)</div>
+          <ul class="sidebar-nav-list">
+            <li>
+              <a
+                href="dashboard.html"
+                class="nav-link-item active"
+                data-menu-id="menu-worklist"
+              >
+                <span class="nav-left">
+                  <i class="bi bi-journal-medical"></i>
+                  <span>Worklist Pasien</span>
+                </span>
+                <span class="nav-badge-count">14</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="doctor.html"
+                class="nav-link-item"
+                data-menu-id="menu-viewer"
+              >
+                <span class="nav-left">
+                  <i class="bi bi-bounding-box"></i>
+                  <span>DICOM AI Viewer</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="doctor.html#validation"
+                class="nav-link-item"
+                data-menu-id="menu-reports"
+              >
+                <span class="nav-left">
+                  <i class="bi bi-file-earmark-check"></i>
+                  <span>Validasi &amp; Tanda Tangan</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Group 2: Modul Administrator RS -->
+          <div class="sidebar-menu-title">Tata Kelola (Admin)</div>
+          <ul class="sidebar-nav-list">
+            <li>
+              <a href="admin.html" class="nav-link-item" data-menu-id="menu-pacs">
+                <span class="nav-left">
+                  <i class="bi bi-hdd-network"></i>
+                  <span>Gateway DICOM / PACS</span>
+                </span>
+                <span class="nav-badge-role">Admin</span>
+              </a>
+            </li>
+            <li>
+              <a href="admin.html#users-section" class="nav-link-item" data-menu-id="menu-users">
+                <span class="nav-left">
+                  <i class="bi bi-people"></i>
+                  <span>Manajemen Hak Akses</span>
+                </span>
+                <span class="nav-badge-role">Admin</span>
+              </a>
+            </li>
+            <li>
+              <a href="admin.html#audit-section" class="nav-link-item" data-menu-id="menu-audit">
+                <span class="nav-left">
+                  <i class="bi bi-shield-check"></i>
+                  <span>Audit Trail UU PDP</span>
+                </span>
+                <span class="nav-badge-role">Admin</span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Group 3: Modul Operator Model Support -->
+          <div class="sidebar-menu-title">Pemeliharaan AI (Operator)</div>
+          <ul class="sidebar-nav-list">
+            <li>
+              <a
+                href="operator.html"
+                class="nav-link-item"
+                data-menu-id="menu-models"
+              >
+                <span class="nav-left">
+                  <i class="bi bi-cpu"></i>
+                  <span>Status Model &amp; GPU</span>
+                </span>
+                <span class="nav-badge-role">MLOps</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="operator.html#pipeline-section"
+                class="nav-link-item"
+                data-menu-id="menu-pipeline"
+              >
+                <span class="nav-left">
+                  <i class="bi bi-database-gear"></i>
+                  <span>Active Learning Queue</span>
+                </span>
+                <span class="nav-badge-role">MLOps</span>
+              </a>
+            </li>
+            <li>
+              <a href="operator.html#drift-section" class="nav-link-item" data-menu-id="menu-logs">
+                <span class="nav-left">
+                  <i class="bi bi-activity"></i>
+                  <span>Drift &amp; Evaluasi</span>
+                </span>
+                <span class="nav-badge-role">MLOps</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Sidebar Footer Status -->
+        <div class="p-2 border-top text-muted" style="font-size: 0.74rem">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span>Inference:</span>
+            <span class="fw-bold text-success">184 ms</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>Storage:</span>
+            <span class="fw-bold text-dark">4.2 TB / 10 TB</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTER COLUMN: WORKLIST & DATASET MONITOR -->
+      <main class="dash-content-area">
+        <!-- Clean Concise Role Banner -->
+        <div class="role-indicator-banner">
+          <div class="d-flex align-items-center flex-wrap gap-2">
+            <h2 class="role-banner-title mb-0" id="roleBannerTitle">
+              🩺 Mode Dokter (Spesialis Radiologi)
+            </h2>
+            <span class="text-muted d-none d-sm-inline">&middot;</span>
+            <span class="role-banner-desc mb-0" id="roleBannerDesc">
+              Worklist Klinis Pasien &amp; Validasi Diagnostik Hasil AI
+            </span>
+          </div>
+          <span
+            class="badge text-bg-light border px-2 py-1 fw-semibold"
+            style="font-size: 0.7rem"
+          >
+            POC READY
+          </span>
+        </div>
+
+        <!-- Metric KPI Cards -->
+        <div class="row g-3 mb-4">
+          <div class="col-sm-6 col-xl-3">
+            <div class="metric-card">
+              <div class="metric-label">
+                <span>Studi Hari Ini</span>
+                <i class="bi bi-images text-muted"></i>
+              </div>
+              <div class="metric-value">128</div>
+              <div class="metric-trend trend-up-green">
+                <i class="bi bi-arrow-up-right"></i>
+                <span>+12.4%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-3">
+            <div class="metric-card">
+              <div class="metric-label">
+                <span>Inferensi AI</span>
+                <i class="bi bi-check2-all text-success"></i>
+              </div>
+              <div class="metric-value">124</div>
+              <div class="metric-trend text-muted">
+                <span>0.18s / studi</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-3">
+            <div class="metric-card">
+              <div class="metric-label">
+                <span>Menunggu Review</span>
+                <i class="bi bi-clock-history text-danger"></i>
+              </div>
+              <div class="metric-value text-danger">14</div>
+              <div class="metric-trend trend-alert-red">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                <span>3 Prioritas</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-3">
+            <div class="metric-card">
+              <div class="metric-label">
+                <span>Dice Score (Akurasi)</span>
+                <i class="bi bi-graph-up-arrow text-primary"></i>
+              </div>
+              <div class="metric-value text-success">98.4%</div>
+              <div class="metric-trend trend-up-green">
+                <i class="bi bi-shield-check"></i>
+                <span>Model v2.4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clinical Worklist Table with State Indicators -->
+        <div class="study-table-card">
+          <div class="table-card-header">
+            <div>
+              <h3 class="table-card-title">Antrean Studi Pasien</h3>
+              <small class="text-muted" style="font-size: 0.76rem">
+                Pilih baris pasien untuk melihat alur kerja dataset di panel
+                kanan.
+              </small>
+            </div>
+            <div>
+              <div class="position-relative">
+                <input
+                  type="text"
+                  class="table-search-input"
+                  placeholder="Cari Pasien / No. RM..."
+                />
+                <i
+                  class="bi bi-search position-absolute"
+                  style="
+                    left: 0.75rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    font-size: 0.82rem;
+                    color: #94a3b8;
+                  "
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="study-table">
+              <thead>
+                <tr>
+                  <th>No. Studi</th>
+                  <th>Pasien</th>
+                  <th>Modalitas</th>
+                  <th>Temuan AI</th>
+                  <th>Confidence</th>
+                  <th>Status Workflow</th>
+                  <th>Waktu</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Row 1 -->
+                <tr
+                  class="study-row selected-row"
+                  data-study-id="STD-2026-9041"
+                >
+                  <td><strong class="text-dark">STD-2026-9041</strong></td>
+                  <td>
+                    <div class="fw-bold">Tn. Hendra Wijaya</div>
+                    <small class="text-muted">54 th &middot; RM-88201</small>
+                  </td>
+                  <td><span class="badge-modality">CT-Thorax</span></td>
+                  <td>
+                    <span class="text-danger fw-semibold">
+                      <i class="bi bi-exclamation-circle-fill me-1"></i>
+                      Solitary Nodule 8.4mm
+                    </span>
+                  </td>
+                  <td>
+                    <span class="confidence-pill high">
+                      <i
+                        class="bi bi-dot"
+                        style="font-size: 1.4rem; line-height: 0"
+                      ></i>
+                      98.2%
+                    </span>
+                  </td>
+                  <td class="state-cell-container">
+                    <span class="state-badge state-review">
+                      <i class="bi bi-hourglass-split"></i> Menunggu Review
+                    </span>
+                  </td>
+                  <td class="text-muted">10:14</td>
+                </tr>
+
+                <!-- Row 2 -->
+                <tr class="study-row" data-study-id="STD-2026-9042">
+                  <td><strong class="text-dark">STD-2026-9042</strong></td>
+                  <td>
+                    <div class="fw-bold">Ny. Ratna Sari</div>
+                    <small class="text-muted">41 th &middot; RM-88195</small>
+                  </td>
+                  <td><span class="badge-modality">Chest X-Ray</span></td>
+                  <td>
+                    <span class="text-dark">Infiltrat, Susp. Pneumonia</span>
+                  </td>
+                  <td>
+                    <span class="confidence-pill high">
+                      <i
+                        class="bi bi-dot"
+                        style="font-size: 1.4rem; line-height: 0"
+                      ></i>
+                      96.5%
+                    </span>
+                  </td>
+                  <td class="state-cell-container">
+                    <span class="state-badge state-verified">
+                      <i class="bi bi-check2"></i> Tervalidasi
+                    </span>
+                  </td>
+                  <td class="text-muted">09:48</td>
+                </tr>
+
+                <!-- Row 3 -->
+                <tr class="study-row" data-study-id="STD-2026-9043">
+                  <td><strong class="text-dark">STD-2026-9043</strong></td>
+                  <td>
+                    <div class="fw-bold">An. Dimas Pratama</div>
+                    <small class="text-muted">12 th &middot; RM-88188</small>
+                  </td>
+                  <td><span class="badge-modality">Brain MRI</span></td>
+                  <td>
+                    <span class="text-muted fst-italic"
+                      >Segmentasi T2-FLAIR...</span
+                    >
+                  </td>
+                  <td>
+                    <span class="confidence-pill medium">
+                      <i class="bi bi-arrow-repeat me-1"></i> Running
+                    </span>
+                  </td>
+                  <td class="state-cell-container">
+                    <span class="state-badge state-inference">
+                      <i class="bi bi-cpu"></i> Inferensi Berjalan
+                    </span>
+                  </td>
+                  <td class="text-muted">10:22</td>
+                </tr>
+
+                <!-- Row 4 -->
+                <tr class="study-row" data-study-id="STD-2026-9044">
+                  <td><strong class="text-dark">STD-2026-9044</strong></td>
+                  <td>
+                    <div class="fw-bold">Tn. Bambang Sutrisno</div>
+                    <small class="text-muted">67 th &middot; RM-88179</small>
+                  </td>
+                  <td><span class="badge-modality">CT Angio</span></td>
+                  <td>
+                    <span class="text-muted">Verifikasi Kualitas Citra</span>
+                  </td>
+                  <td>
+                    <span class="confidence-pill medium">Antrean</span>
+                  </td>
+                  <td class="state-cell-container">
+                    <span class="state-badge state-received">
+                      <i class="bi bi-box-arrow-in-down"></i> Antrean PACS
+                    </span>
+                  </td>
+                  <td class="text-muted">10:26</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+
+      <!-- RIGHT COLUMN: DATASET WORKFLOW & ACTION INSPECTOR -->
+      <aside class="dash-right-panel">
+        <div class="panel-section-title">
+          <span>Alur Dataset &amp; State</span>
+          <span
+            class="badge bg-light text-dark border"
+            style="font-size: 0.7rem"
+            >Live</span
+          >
+        </div>
+
+        <!-- Selected Study Brief Box -->
+        <div class="study-overview-box">
+          <div class="study-overview-header">
+            <span class="study-id-text" id="panelStudyId">STD-2026-9041</span>
+            <span class="badge text-bg-dark" id="panelModality">CT-Thorax</span>
+          </div>
+          <div class="fw-semibold text-dark mb-1" id="panelPatientName">
+            Tn. Hendra Wijaya (54 th)
+          </div>
+          <div class="text-muted small mb-0" id="panelFinding">
+            Solitary Nodule 8.4mm (RUL)
+          </div>
+        </div>
+
+        <!-- Compact Workflow Stepper -->
+        <div class="workflow-stepper">
+          <!-- Step 1 -->
+          <div class="step-node completed">
+            <div class="step-bullet"><i class="bi bi-check"></i></div>
+            <div class="step-title">
+              <span>1. Ingestion PACS</span>
+              <span class="step-actor-badge text-bg-light border">Gateway</span>
+            </div>
+            <p class="step-desc">Anonim &amp; Terverifikasi</p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-node completed">
+            <div class="step-bullet"><i class="bi bi-check"></i></div>
+            <div class="step-title">
+              <span>2. Inferensi AI</span>
+              <span class="step-actor-badge text-bg-light border">Neural</span>
+            </div>
+            <p class="step-desc">Segmentasi Lesi Selesai (184ms)</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-node alert">
+            <div class="step-bullet"></div>
+            <div class="step-title">
+              <span class="text-danger fw-bold">3. Validasi Klinis</span>
+              <span class="step-actor-badge text-bg-danger">Dokter</span>
+            </div>
+            <p class="step-desc">Menunggu Tinjauan Radiolog (DPJP)</p>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="step-node">
+            <div class="step-bullet"></div>
+            <div class="step-title">
+              <span>4. Pengesahan EMR</span>
+              <span class="step-actor-badge text-bg-light border">SIMRS</span>
+            </div>
+            <p class="step-desc">Arsip Rekam Medis Terenkripsi</p>
+          </div>
+        </div>
+
+        <!-- Role Action Box -->
+        <div class="action-box mt-auto">
+          <div class="action-box-header">
+            <i class="bi bi-lightning-charge-fill text-success"></i>
+            <span class="fw-bold" style="font-size: 0.85rem"
+              >Tindakan Role Aktif:</span
+            >
+          </div>
+
+          <div id="roleActionContainer">
+            <!-- Populated dynamically by dashboard.js -->
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Dashboard Logic & SQLite3 Workflow Script -->
+    <script src="assets/js/dashboard.js"></script>
+  </body>
+</html>

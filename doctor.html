@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedAI-CV &mdash; Modul Klinis Dokter &amp; DICOM AI Viewer</title>
+
+    <!-- Google Fonts: Changa One & Sora -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Sora:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5.3.3 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Dashboard Stylesheet -->
+    <link rel="stylesheet" href="assets/css/dashboard.css" />
+  </head>
+  <body>
+    <!-- TOPBAR -->
+    <header class="dash-topbar">
+      <a href="dashboard.html" class="topbar-brand">
+        <img src="assets/img/brand.png" alt="MedAI-CV Logo" width="38" height="38" />
+        <div>
+          <h1 class="brand-text-title">MedAI-CV</h1>
+          <span class="brand-text-sub">Instalasi Radiologi Klinis</span>
+        </div>
+      </a>
+
+      <!-- Quick Role Navigation -->
+      <div class="role-switcher-container">
+        <a href="doctor.html" class="role-pill-btn active" data-role="doctor">
+          <i class="bi bi-heart-pulse-fill"></i>
+          <span>Dokter</span>
+        </a>
+        <a href="admin.html" class="role-pill-btn" data-role="admin">
+          <i class="bi bi-shield-lock-fill"></i>
+          <span>Admin</span>
+        </a>
+        <a href="operator.html" class="role-pill-btn" data-role="operator">
+          <i class="bi bi-cpu-fill"></i>
+          <span>Operator</span>
+        </a>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="badge-system-live d-none d-md-inline-flex">
+          <span class="status-dot"></span>
+          <span>DICOM Stream Active</span>
+        </div>
+
+        <div class="user-profile-widget">
+          <div class="user-avatar">DR</div>
+          <div class="d-none d-sm-block text-start">
+            <div class="fw-bold" style="font-size: 0.82rem;">dr. Farhan Malik, Sp.Rad</div>
+            <span class="badge badge-green" style="font-size: 0.68rem;">DPJP Radiologi</span>
+          </div>
+          <a href="index.html" class="btn btn-sm btn-outline-secondary ms-2 text-danger border-0" title="Keluar">
+            <i class="bi bi-box-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="dash-layout">
+      <!-- LEFT SIDEBAR -->
+      <aside class="dash-sidebar">
+        <div>
+          <div class="sidebar-menu-title">Klinis (Dokter)</div>
+          <ul class="sidebar-nav-list">
+            <li>
+              <a href="dashboard.html" class="nav-link-item">
+                <span class="nav-left">
+                  <i class="bi bi-journal-medical"></i>
+                  <span>Worklist Pasien</span>
+                </span>
+                <span class="nav-badge-count">14</span>
+              </a>
+            </li>
+            <li>
+              <a href="doctor.html" class="nav-link-item active">
+                <span class="nav-left">
+                  <i class="bi bi-bounding-box"></i>
+                  <span>DICOM AI Viewer</span>
+                </span>
+                <span class="badge bg-success-subtle text-success" style="font-size: 0.65rem;">Active</span>
+              </a>
+            </li>
+            <li>
+              <a href="#validation" class="nav-link-item">
+                <span class="nav-left">
+                  <i class="bi bi-file-earmark-check"></i>
+                  <span>Validasi &amp; Tanda Tangan</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="sidebar-menu-title">Tata Kelola (Admin)</div>
+          <ul class="sidebar-nav-list">
+            <li>
+              <a href="admin.html" class="nav-link-item">
+                <span class="nav-left">
+                  <i class="bi bi-hdd-network"></i>
+                  <span>Gateway DICOM / PACS</span>
+                </span>
+                <span class="nav-badge-role">Admin</span>
+              </a>
+            </li>
+            <li>
+              <a href="admin.html#users" class="nav-link-item">
+                <span class="nav-left">
+                  <i class="bi bi-people"></i>
+                  <span>Manajemen Hak Akses</span>
+                </span>
+                <span class="nav-badge-role">Admin</span>
+              </a>
+            </li>
+            <li>
+              <a href="admin.html#audit" class="nav-link-item">
+                <span class="nav-left">
+                  <i class="bi bi-shield-check"></i>
+                  <span>Audit Trail UU PDP</span>
+                </span>
+                <span class="nav-badge-role">Admin</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="sidebar-menu-title">Pemeliharaan AI (Operator)</div>
+          <ul class="sidebar-nav-list">
+            <li>
+              <a href="operator.html" class="nav-link-item">
+                <span class="nav-left">
+                  <i class="bi bi-cpu"></i>
+                  <span>Status Model &amp; GPU</span>
+                </span>
+                <span class="nav-badge-role">MLOps</span>
+              </a>
+            </li>
+            <li>
+              <a href="operator.html#pipeline" class="nav-link-item">
+                <span class="nav-left">
+                  <i class="bi bi-database-gear"></i>
+                  <span>Active Learning Queue</span>
+                </span>
+                <span class="nav-badge-role">MLOps</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="p-2 border-top text-muted" style="font-size: 0.74rem;">
+          <a href="dashboard.html" class="text-decoration-none text-muted d-flex align-items-center gap-1">
+            <i class="bi bi-arrow-left"></i> Kembali ke Dashboard Utama
+          </a>
+        </div>
+      </aside>
+
+      <!-- MAIN CLINICAL CONTENT AREA -->
+      <main class="dash-content-area">
+        <!-- Patient Banner -->
+        <div class="d-flex align-items-center justify-content-between p-3 bg-white border rounded-3 mb-3">
+          <div class="d-flex align-items-center gap-3">
+            <span class="badge-modality px-2.5 py-1.5" style="font-size: 0.85rem;">CT-Thorax High-Res</span>
+            <div>
+              <h5 class="mb-0 fw-bold text-dark">Tn. Hendra Wijaya (54 th) &middot; <span class="text-muted fw-normal">No. RM: RM-88201</span></h5>
+              <small class="text-muted">No. Seri: STD-2026-9041 &middot; Scanner: GE Revolution CT (Slice: 42/120)</small>
+            </div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <span class="state-badge state-review">
+              <i class="bi bi-exclamation-circle-fill"></i> Menunggu Pengesahan DPJP
+            </span>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <!-- Left: DICOM AI Interactive Viewer -->
+          <div class="col-lg-8">
+            <div class="dicom-container">
+              <!-- Toolbar -->
+              <div class="dicom-toolbar">
+                <div class="d-flex align-items-center gap-2">
+                  <button type="button" class="dicom-tool-btn active" id="btnWindowLung">Lung Window</button>
+                  <button type="button" class="dicom-tool-btn" id="btnWindowMediastinum">Mediastinum</button>
+                  <button type="button" class="dicom-tool-btn" id="btnWindowBone">Bone</button>
+                </div>
+
+                <div class="d-flex align-items-center gap-2">
+                  <button type="button" class="dicom-tool-btn" id="btnZoomIn"><i class="bi bi-zoom-in"></i> Zoom</button>
+                  <button type="button" class="dicom-tool-btn" id="btnMeasure"><i class="bi bi-rulers"></i> Ukur</button>
+                  <button type="button" class="dicom-tool-btn active" id="btnToggleAi">
+                    <i class="bi bi-eye-fill text-success"></i>
+                    <span>AI Mask: ON</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Viewport View Canvas -->
+              <div class="dicom-viewport-area" id="dicomViewport">
+                <div class="dicom-scan-mock">
+                  <!-- Simulated CT Axial Lung Anatomy -->
+                  <svg width="260" height="260" viewBox="0 0 200 200" style="opacity: 0.65;">
+                    <!-- Right & Left Lung Fields -->
+                    <path d="M 60,40 C 30,70 30,130 65,160 C 85,165 95,140 90,100 C 85,60 80,40 60,40 Z" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                    <path d="M 140,40 C 170,70 170,130 135,160 C 115,165 105,140 110,100 C 115,60 120,40 140,40 Z" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                    <!-- Spine & Sternum -->
+                    <circle cx="100" cy="175" r="14" fill="#334155"/>
+                    <ellipse cx="100" cy="25" rx="16" ry="6" fill="#334155"/>
+                  </svg>
+
+                  <!-- AI Lesion Segmentation Overlay -->
+                  <div class="ai-lesion-mask" id="aiLesionMask">
+                    <span class="ai-lesion-label">Nodul 8.4mm (98.2%)</span>
+                    <i class="bi bi-crosshair text-danger" style="font-size: 1.2rem;"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slice Navigator Slider -->
+              <div class="dicom-slice-slider">
+                <i class="bi bi-layers"></i>
+                <span style="min-width: 90px;" id="sliceIndicator">Slice: 42 / 120</span>
+                <input
+                  type="range"
+                  class="form-range flex-grow-1"
+                  id="sliceRangeInput"
+                  min="1"
+                  max="120"
+                  value="42"
+                />
+                <span class="badge text-bg-dark border">Thickness: 1.25mm</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Clinical Validation & Sign-off Panel -->
+          <div class="col-lg-4">
+            <div class="bg-white border rounded-3 p-3 d-flex flex-column h-100">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="fw-bold text-dark" style="font-size: 0.92rem;">Temuan Segmentasi AI</span>
+                <span class="badge bg-danger-subtle text-danger" style="font-size: 0.7rem;">Prioritas Tinggi</span>
+              </div>
+
+              <div class="p-2.5 bg-light rounded-2 border mb-3">
+                <div class="d-flex justify-content-between mb-1" style="font-size: 0.8rem;">
+                  <span class="text-muted">Klasifikasi:</span>
+                  <span class="fw-bold text-danger">Solitary Pulmonary Nodule</span>
+                </div>
+                <div class="d-flex justify-content-between mb-1" style="font-size: 0.8rem;">
+                  <span class="text-muted">Lokasi Anatomis:</span>
+                  <span class="fw-semibold text-dark">Right Upper Lobe (Apical)</span>
+                </div>
+                <div class="d-flex justify-content-between mb-1" style="font-size: 0.8rem;">
+                  <span class="text-muted">Diameter Maksimal:</span>
+                  <span class="fw-bold text-dark">8.4 mm &plusmn; 0.2mm</span>
+                </div>
+                <div class="d-flex justify-content-between" style="font-size: 0.8rem;">
+                  <span class="text-muted">Confidence Score:</span>
+                  <span class="fw-bold text-success">98.2% (Model v2.4)</span>
+                </div>
+              </div>
+
+              <!-- Doctor's Impression Template -->
+              <label for="doctorImpressionText" class="form-label fw-bold" style="font-size: 0.82rem;">
+                Kesimpulan Diagnostik Dokter (DPJP):
+              </label>
+              <textarea
+                class="form-control mb-3 flex-grow-1"
+                id="doctorImpressionText"
+                rows="5"
+                style="font-size: 0.82rem; line-height: 1.5;"
+              >Tampak solitary nodul densitas solid pada lobus superior pulmo dextra berukuran 8.4mm dengan batas reguler. Tidak tampak kalsifikasi intralesi maupun cavitas. Cor dan struktur mediastinum dalam batas normal.
+
+Saran: Evaluasi follow-up CT low-dose 3-6 bulan sesuai pedoman Fleischner Society.</textarea>
+
+              <!-- Actions -->
+              <div class="d-flex flex-column gap-2 mt-auto">
+                <button type="button" class="action-btn-primary" id="btnValidateSign">
+                  <i class="bi bi-pen-fill"></i>
+                  <span>Sahkan &amp; Tandatangani (EHR Export)</span>
+                </button>
+                <button type="button" class="action-btn-secondary" id="btnEditPolygon">
+                  <i class="bi bi-vector-pen"></i>
+                  <span>Koreksi Masker Poligon</span>
+                </button>
+                <a href="dashboard.html" class="btn btn-sm btn-outline-secondary text-center" style="font-size: 0.82rem;">
+                  Kembali ke Worklist
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Doctor Page Script -->
+    <script>
+      const btnToggleAi = document.getElementById("btnToggleAi");
+      const aiLesionMask = document.getElementById("aiLesionMask");
+      const sliceRangeInput = document.getElementById("sliceRangeInput");
+      const sliceIndicator = document.getElementById("sliceIndicator");
+      const btnValidateSign = document.getElementById("btnValidateSign");
+
+      if (btnToggleAi && aiLesionMask) {
+        let isAiVisible = true;
+        btnToggleAi.addEventListener("click", () => {
+          isAiVisible = !isAiVisible;
+          aiLesionMask.style.display = isAiVisible ? "flex" : "none";
+          btnToggleAi.innerHTML = isAiVisible
+            ? '<i class="bi bi-eye-fill text-success"></i> <span>AI Mask: ON</span>'
+            : '<i class="bi bi-eye-slash text-muted"></i> <span>AI Mask: OFF</span>';
+          btnToggleAi.classList.toggle("active", isAiVisible);
+        });
+      }
+
+      if (sliceRangeInput && sliceIndicator) {
+        sliceRangeInput.addEventListener("input", (e) => {
+          sliceIndicator.textContent = `Slice: ${e.target.value} / 120`;
+          // Slightly shift mask scale simulation
+          if (aiLesionMask) {
+            const scale = Math.max(0.6, 1 - Math.abs(e.target.value - 42) * 0.03);
+            aiLesionMask.style.transform = `scale(${scale})`;
+            aiLesionMask.style.opacity = e.target.value >= 35 && e.target.value <= 50 ? "1" : "0.2";
+          }
+        });
+      }
+
+      if (btnValidateSign) {
+        btnValidateSign.addEventListener("click", () => {
+          btnValidateSign.disabled = true;
+          btnValidateSign.innerHTML = `
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            <span>Mengenkripsi &amp; Menyimpan...</span>
+          `;
+          setTimeout(() => {
+            alert("Laporan Radiologi Resmi telah disahkan dr. Farhan Malik, Sp.Rad dengan Tanda Tangan Digital (RSA-SHA256). Hasil berhasil disinkronkan ke SIMRS!");
+            window.location.href = "dashboard.html";
+          }, 1000);
+        });
+      }
+    </script>
+  </body>
+</html>
+

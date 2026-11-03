@@ -1,0 +1,1004 @@
+/* ==========================================================================
+   MedAI-CV — Enterprise Hospital Dashboard Stylesheet
+   Theme: Clean Medical White, Green Accents, Red Clinical Alerts
+   Fonts: Changa One (Branding & Key Metrics) & Sora (UI & Data)
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --bg-app: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-sidebar: #ffffff;
+  --bg-right-panel: #ffffff;
+
+  /* Primary Green */
+  --green-primary: #10b981;
+  --green-hover: #059669;
+  --green-dark: #065f46;
+  --green-light: #ecfdf5;
+  --green-border: #a7f3d0;
+  --green-glow: rgba(16, 185, 129, 0.15);
+
+  /* Red Alert Hint */
+  --red-hint: #ef4444;
+  --red-hover: #dc2626;
+  --red-light: #fef2f2;
+  --red-border: #fecaca;
+
+  /* Neutral Slate */
+  --text-main: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-light: #e2e8f0;
+  --border-subtle: #f1f5f9;
+
+  /* Role Accent Badges */
+  --role-doctor-bg: #ecfdf5;
+  --role-doctor-text: #047857;
+  --role-admin-bg: #eff6ff;
+  --role-admin-text: #1d4ed8;
+  --role-operator-bg: #fff7ed;
+  --role-operator-text: #c2410c;
+
+  /* Typography */
+  --font-display: "Changa One", cursive, sans-serif;
+  --font-body: "Sora", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Dimensions */
+  --topbar-height: 70px;
+  --sidebar-width: 260px;
+  --right-panel-width: 380px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   TOPBAR
+   ========================================================================== */
+.dash-topbar {
+  height: var(--topbar-height);
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.topbar-brand img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+  padding: 3px;
+  background: #ffffff;
+}
+
+.brand-text-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--text-main);
+  letter-spacing: 0.01em;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.brand-text-sub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+/* Role Switcher Pill Bar (PoC Showcase) */
+.role-switcher-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f1f5f9;
+  padding: 0.35rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+}
+
+.role-switcher-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  padding: 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.role-pill-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.role-pill-btn:hover {
+  background: #e2e8f0;
+  color: var(--text-main);
+}
+
+.role-pill-btn.active[data-role="doctor"] {
+  background: var(--role-doctor-bg);
+  color: var(--role-doctor-text);
+  border: 1px solid var(--green-border);
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.15);
+}
+
+.role-pill-btn.active[data-role="admin"] {
+  background: var(--role-admin-bg);
+  color: var(--role-admin-text);
+  border: 1px solid #bfdbfe;
+  box-shadow: 0 2px 6px rgba(29, 78, 216, 0.15);
+}
+
+.role-pill-btn.active[data-role="operator"] {
+  background: var(--role-operator-bg);
+  color: var(--role-operator-text);
+  border: 1px solid #fed7aa;
+  box-shadow: 0 2px 6px rgba(194, 65, 12, 0.15);
+}
+
+/* User Profile & System Status */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.badge-system-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  border-radius: 50rem;
+  background: var(--green-light);
+  color: var(--green-dark);
+  border: 1px solid var(--green-border);
+}
+
+.badge-system-live .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green-primary);
+}
+
+.user-profile-widget {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--border-light);
+}
+
+.user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #e2e8f0;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   LAYOUT STRUCTURE: SIDEBAR + MAIN CONTENT + RIGHT WORKFLOW PANEL
+   ========================================================================== */
+.dash-layout {
+  display: flex;
+  min-height: calc(100vh - var(--topbar-height));
+  width: 100%;
+}
+
+/* Sidebar Left */
+.dash-sidebar {
+  width: var(--sidebar-width);
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-light);
+  flex-shrink: 0;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar-menu-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin: 1.25rem 0 0.5rem 0.75rem;
+}
+
+.sidebar-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nav-link-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.nav-link-item .nav-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.nav-link-item i {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.nav-link-item:hover {
+  background: #f1f5f9;
+  color: var(--text-main);
+}
+
+.nav-link-item:hover i {
+  color: var(--green-primary);
+}
+
+.nav-link-item.active {
+  background: var(--green-light);
+  color: var(--green-dark);
+  border: 1px solid var(--green-border);
+}
+
+.nav-link-item.active i {
+  color: var(--green-primary);
+}
+
+.nav-badge-count {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 50rem;
+  background: #f1f5f9;
+  color: var(--text-secondary);
+}
+
+.nav-link-item.active .nav-badge-count {
+  background: #ffffff;
+  color: var(--green-dark);
+}
+
+/* Role Locked Menu Indicator */
+.nav-link-item.role-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: transparent !important;
+}
+
+.nav-link-item.role-disabled .nav-badge-role {
+  font-size: 0.65rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  background: #e2e8f0;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   CENTER MAIN CONTENT AREA
+   ========================================================================== */
+.dash-content-area {
+  flex: 1;
+  padding: 1.75rem 2rem;
+  overflow-y: auto;
+  background: var(--bg-app);
+}
+
+/* Role Banner Alert (Clean & Compact) */
+.role-indicator-banner {
+  border-radius: 12px;
+  padding: 0.75rem 1.15rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border-light);
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.02);
+}
+
+.role-banner-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.role-banner-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Metrics Row */
+.metric-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--green-border);
+}
+
+.metric-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.metric-value {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  color: var(--text-main);
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.metric-trend {
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.trend-up-green {
+  color: var(--green-primary);
+}
+
+.trend-alert-red {
+  color: var(--red-hint);
+}
+
+/* Table Card */
+.study-table-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+  margin-top: 1.5rem;
+}
+
+.table-card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.table-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.table-search-input {
+  max-width: 260px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  padding: 0 0.75rem 0 2.25rem;
+  font-size: 0.85rem;
+  background: #f8fafc;
+}
+
+.study-table {
+  width: 100%;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+.study-table th {
+  background: #fafbfc;
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.study-table td {
+  padding: 1rem 1.25rem;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.study-table tbody tr:hover td {
+  background-color: #f8fafc;
+}
+
+.study-table tbody tr.selected-row td {
+  background-color: var(--green-light);
+}
+
+/* Modality Badge */
+.badge-modality {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background: #e2e8f0;
+  color: #334155;
+}
+
+/* State Badges */
+.state-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 50rem;
+}
+
+.state-badge.state-received {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.state-badge.state-inference {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+}
+
+.state-badge.state-review {
+  background: var(--red-light);
+  color: var(--red-hover);
+  border: 1px solid var(--red-border);
+}
+
+.state-badge.state-verified {
+  background: var(--green-light);
+  color: var(--green-dark);
+  border: 1px solid var(--green-border);
+}
+
+/* AI Confidence Pill */
+.confidence-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.confidence-pill.high {
+  color: var(--green-primary);
+}
+
+.confidence-pill.medium {
+  color: #d97706;
+}
+
+/* ==========================================================================
+   RIGHT SIDEBAR: DATASET WORKFLOW & STATE INSPECTOR
+   ========================================================================== */
+.dash-right-panel {
+  width: var(--right-panel-width);
+  background: var(--bg-right-panel);
+  border-left: 1px solid var(--border-light);
+  flex-shrink: 0;
+  padding: 1.5rem 1.25rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-section-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel-subtitle {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+/* Selected Study Overview Card */
+.study-overview-box {
+  background: #f8fafc;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.study-overview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.study-id-text {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--text-main);
+}
+
+/* State Stepper Vertical Timeline */
+.workflow-stepper {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.workflow-stepper::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: var(--border-light);
+}
+
+.step-node {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.step-node:last-child {
+  margin-bottom: 0;
+}
+
+.step-bullet {
+  position: absolute;
+  left: -1.5rem;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-node.completed .step-bullet {
+  background: var(--green-primary);
+  border-color: var(--green-primary);
+  color: #ffffff;
+  font-size: 0.6rem;
+}
+
+.step-node.active .step-bullet {
+  background: #ffffff;
+  border-color: var(--green-primary);
+  box-shadow: 0 0 0 4px var(--green-glow);
+}
+
+.step-node.active .step-bullet::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green-primary);
+}
+
+.step-node.alert .step-bullet {
+  background: var(--red-hint);
+  border-color: var(--red-hint);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
+}
+
+.step-title {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.step-desc {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.step-actor-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+/* Action Matrix Card based on Active Role */
+.action-box {
+  background: #ffffff;
+  border: 1.5px solid var(--border-light);
+  border-radius: 14px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.action-box-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.action-btn-primary {
+  width: 100%;
+  height: 44px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  background: var(--green-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.action-btn-primary:hover {
+  background: var(--green-hover);
+  transform: translateY(-1px);
+}
+
+.action-btn-secondary {
+  width: 100%;
+  height: 42px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid var(--border-light);
+  background: #ffffff;
+  color: var(--text-main);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.action-btn-secondary:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS (1140, 1200-1440, 1280, 1440+, Mobile/Tablet)
+   ========================================================================== */
+@media (min-width: 1440px) {
+  :root {
+    --sidebar-width: 290px;
+    --right-panel-width: 420px;
+  }
+
+  .dash-content-area {
+    padding: 2.25rem 2.5rem;
+  }
+
+  .metric-value {
+    font-size: 2.45rem;
+  }
+}
+
+@media (max-width: 1279.98px) {
+  :root {
+    --right-panel-width: 340px;
+    --sidebar-width: 240px;
+  }
+}
+
+@media (max-width: 1139.98px) {
+  .dash-layout {
+    flex-direction: column;
+  }
+
+  .dash-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+    padding: 1rem 1.5rem;
+  }
+
+  .dash-right-panel {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid var(--border-light);
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .dash-topbar {
+    height: auto;
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .role-switcher-container {
+    justify-content: center;
+  }
+
+  .dash-content-area {
+    padding: 1rem;
+  }
+}
+
+/* ==========================================================================
+   DYNAMIC MODULES: CLINICAL VIEWER, ADMIN GOVERNANCE & MLOPS OPERATOR
+   ========================================================================== */
+
+/* 1. DICOM Viewer Components (Doctor Module) */
+.dicom-container {
+  background: #090d16;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #1e293b;
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dicom-toolbar {
+  background: #0f172a;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.dicom-tool-btn {
+  background: transparent;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.dicom-tool-btn:hover,
+.dicom-tool-btn.active {
+  background: #1e293b;
+  color: #ffffff;
+  border-color: var(--green-primary);
+}
+
+.dicom-viewport-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 400px;
+  background: radial-gradient(circle at center, #111827 0%, #030712 100%);
+  user-select: none;
+}
+
+.dicom-scan-mock {
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.15);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(15, 23, 42, 0.8) 75%);
+}
+
+.ai-lesion-mask {
+  position: absolute;
+  top: 75px;
+  right: 80px;
+  width: 54px;
+  height: 48px;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 55%;
+  background: rgba(239, 68, 68, 0.35);
+  border: 2px solid #ef4444;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.6);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-lesion-label {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.dicom-slice-slider {
+  padding: 0.75rem 1.25rem;
+  background: #0f172a;
+  border-top: 1px solid #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #94a3b8;
+  font-size: 0.78rem;
+}
+
+/* 2. Admin & Governance Components */
+.node-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 1.15rem;
+  transition: all 0.2s ease;
+}
+
+.node-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+.audit-table th {
+  background: #fafbfc;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.audit-table td {
+  font-size: 0.82rem;
+  padding: 0.8rem 1rem;
+}
+
+.hash-code {
+  font-family: monospace;
+  font-size: 0.75rem;
+  background: #f1f5f9;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  color: #475569;
+}
+
+/* 3. Operator & MLOps Components */
+.gpu-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  padding: 1.25rem;
+}
+
+.gpu-bar-container {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 50rem;
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.gpu-bar-fill {
+  height: 100%;
+  border-radius: 50rem;
+  background: var(--green-primary);
+  transition: width 0.3s ease;
+}
+
+.pipeline-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+
+

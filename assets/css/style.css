@@ -1,0 +1,669 @@
+/* ==========================================================================
+   MedAI-CV — Enterprise Medical AI Portal Stylesheet
+   Theme: Clean White, Green Corporate Accents, Subtle Red Clinical Hint
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --bg-page: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f1f5f9;
+
+  /* Green Accent (Primary Action & Trust) */
+  --green-primary: #10b981;
+  --green-hover: #059669;
+  --green-dark: #065f46;
+  --green-light: #ecfdf5;
+  --green-border: #a7f3d0;
+  --green-glow: rgba(16, 185, 129, 0.2);
+
+  /* Red Hint (Clinical Alert, Pulse & Priority Accents) */
+  --red-hint: #ef4444;
+  --red-hover: #dc2626;
+  --red-light: #fef2f2;
+  --red-border: #fecaca;
+  --red-badge-text: #b91c1c;
+
+  /* Typography: Changa One (Display) & Sora (Body & UI) */
+  --font-display: "Changa One", cursive, sans-serif;
+  --font-body: "Sora", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Typography & Borders */
+  --text-main: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-light: #e2e8f0;
+  --border-focus: #10b981;
+
+  /* Shadows */
+  --shadow-card: 0 10px 30px -5px rgba(15, 23, 42, 0.05),
+                 0 0 1px 1px rgba(15, 23, 42, 0.04);
+  --shadow-btn: 0 4px 14px rgba(16, 185, 129, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+/* ==========================================================================
+   CONTAINER & RESPONSIVE BREAKPOINTS
+   - 1140px: Bootstrap Klasik
+   - 1200px - 1440px: Umum Desktop
+   - 1280px: Dashboard & Web App
+   - 1440px+: Desain Modern Lega
+   ========================================================================== */
+
+.auth-container {
+  width: 100%;
+  max-width: 1140px; /* Baseline: Bootstrap Klasik */
+  min-height: 620px;
+  background: var(--bg-surface);
+  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: max-width 0.3s ease, min-height 0.3s ease;
+}
+
+/* Breakpoint: Desktop Umum (1200px - 1279px) */
+@media (min-width: 1200px) and (max-width: 1279.98px) {
+  .auth-container {
+    max-width: 1200px;
+    min-height: 640px;
+  }
+
+  .brand-section {
+    padding: 3.5rem 3.25rem;
+  }
+
+  .login-section {
+    padding: 3.5rem 3.5rem;
+  }
+}
+
+/* Breakpoint: 1280px (Standard Dashboard & Web App) */
+@media (min-width: 1280px) and (max-width: 1439.98px) {
+  .auth-container {
+    max-width: 1280px;
+    min-height: 680px;
+    border-radius: 24px;
+  }
+
+  .brand-section {
+    padding: 3.75rem 3.5rem;
+  }
+
+  .login-section {
+    padding: 3.75rem 3.75rem;
+  }
+
+  .brand-headline {
+    font-size: 2.35rem;
+  }
+
+  .form-title {
+    font-size: 1.95rem;
+  }
+
+  .input-wrapper .form-control,
+  .btn-green-primary {
+    height: 50px;
+  }
+}
+
+/* Breakpoint: 1440px+ (Modern Desain Lega) */
+@media (min-width: 1440px) {
+  .auth-container {
+    max-width: 1440px;
+    min-height: 740px;
+    border-radius: 28px;
+    box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.08),
+                0 0 1px 1px rgba(15, 23, 42, 0.04);
+  }
+
+  .brand-section {
+    padding: 4.5rem 4.25rem;
+  }
+
+  .login-section {
+    padding: 4.5rem 4.5rem;
+  }
+
+  .brand-image-wrapper img {
+    max-width: 130px;
+  }
+
+  .brand-headline {
+    font-size: 2.65rem;
+  }
+
+  .brand-description {
+    font-size: 1.05rem;
+  }
+
+  .feature-item {
+    padding: 1.05rem 1.25rem;
+  }
+
+  .form-title {
+    font-size: 2.15rem;
+  }
+
+  .input-wrapper .form-control,
+  .btn-green-primary {
+    height: 52px;
+    font-size: 1rem;
+  }
+}
+
+/* Responsive: Tablet (max-width: 991.98px) */
+@media (max-width: 991.98px) {
+  body {
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .auth-container {
+    max-width: 600px;
+    min-height: auto;
+    border-radius: 18px;
+  }
+
+  .brand-section {
+    padding: 2.5rem 2rem 2rem 2rem;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .brand-headline {
+    font-size: 1.65rem;
+  }
+
+  .login-section {
+    padding: 2.25rem 2rem 2.5rem 2rem;
+  }
+}
+
+/* Responsive: Mobile (max-width: 575.98px) */
+@media (max-width: 575.98px) {
+  body {
+    padding: 0.5rem;
+  }
+
+  .auth-container {
+    border-radius: 14px;
+  }
+
+  .brand-section {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .brand-headline {
+    font-size: 1.4rem;
+  }
+
+  .login-section {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .form-title {
+    font-size: 1.35rem;
+  }
+
+  .brand-image-wrapper img {
+    max-width: 80px;
+  }
+}
+
+/* ==========================================================================
+   LEFT SECTION: BRAND IDENTITY (CLEAN WHITE & GREEN/RED ACCENTS)
+   ========================================================================== */
+
+.brand-section {
+  background-color: #fafbfc;
+  border-right: 1px solid var(--border-light);
+  padding: 3.25rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Brand Image & Header */
+.brand-image-wrapper {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+}
+
+.brand-image-wrapper img {
+  max-width: 100px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 14px;
+  padding: 6px;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+.brand-badges-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.badge-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.65rem;
+  border-radius: 50rem;
+  background-color: var(--green-light);
+  color: var(--green-dark);
+  border: 1px solid var(--green-border);
+}
+
+.badge-green .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--green-primary);
+  display: inline-block;
+}
+
+/* Hint of Red: Clinical Priority / Pulse Tag */
+.badge-red-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.65rem;
+  border-radius: 50rem;
+  background-color: var(--red-light);
+  color: var(--red-badge-text);
+  border: 1px solid var(--red-border);
+}
+
+.badge-red-hint i {
+  color: var(--red-hint);
+  font-size: 0.8rem;
+}
+
+.brand-headline {
+  font-family: var(--font-display);
+  font-size: 2.15rem;
+  font-weight: 400; /* Changa One is inherently display-bold */
+  color: var(--text-main);
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+
+.brand-headline .highlight-green {
+  color: var(--green-primary);
+}
+
+.brand-headline .highlight-red {
+  color: var(--red-hint);
+}
+
+.brand-description {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Feature List */
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  transition: all 0.2s ease;
+}
+
+.feature-item:hover {
+  border-color: var(--green-border);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08);
+  transform: translateY(-2px);
+}
+
+.feature-icon-green {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--green-light);
+  color: var(--green-primary);
+  border: 1px solid var(--green-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+
+.feature-icon-red {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--red-light);
+  color: var(--red-hint);
+  border: 1px solid var(--red-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+
+.feature-text h6 {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.15rem;
+}
+
+.feature-text p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.brand-footer {
+  border-top: 1px solid var(--border-light);
+  padding-top: 1.25rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   RIGHT SECTION: LOGIN FORM
+   ========================================================================== */
+
+.login-section {
+  padding: 3.25rem 3.25rem;
+  background-color: var(--bg-surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+  background-color: var(--green-light);
+  border: 1px solid var(--green-border);
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+}
+
+.form-title {
+  font-family: var(--font-body);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.025em;
+  margin-bottom: 0.35rem;
+}
+
+.form-subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.75rem;
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 0.825rem;
+  color: var(--text-medium);
+  margin-bottom: 0.4rem;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper .input-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.input-wrapper .form-control {
+  padding-left: 2.75rem;
+  padding-right: 2.75rem;
+  height: 48px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-light);
+  font-size: 0.92rem;
+  background-color: #ffffff;
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+
+.input-wrapper .form-control:focus {
+  background-color: #ffffff;
+  border-color: var(--green-primary);
+  box-shadow: 0 0 0 4px var(--green-glow);
+  outline: none;
+}
+
+.input-wrapper .form-control:focus + .input-icon {
+  color: var(--green-primary);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.05rem;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.toggle-password:hover {
+  color: var(--text-main);
+}
+
+.form-check-label {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.form-check-input {
+  cursor: pointer;
+  border-radius: 4px;
+  border-color: #cbd5e1;
+}
+
+.form-check-input:checked {
+  background-color: var(--green-primary);
+  border-color: var(--green-primary);
+}
+
+/* Forgot link with subtle hint-red hover */
+.forgot-link {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--green-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgot-link:hover {
+  color: var(--red-hint);
+  text-decoration: underline;
+}
+
+/* Green Corporate Button */
+.btn-green-primary {
+  background: var(--green-primary);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: var(--shadow-btn);
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-green-primary:hover {
+  background: var(--green-hover);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.36);
+  transform: translateY(-1px);
+  color: #ffffff;
+}
+
+.btn-green-primary:active {
+  transform: translateY(0);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.35rem 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.divider:not(:empty)::before {
+  margin-right: 0.85rem;
+}
+
+.divider:not(:empty)::after {
+  margin-left: 0.85rem;
+}
+
+/* SSO Button */
+.btn-sso {
+  height: 46px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-light);
+  background-color: #ffffff;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  transition: all 0.2s ease;
+}
+
+.btn-sso:hover {
+  background-color: var(--bg-subtle);
+  border-color: #cbd5e1;
+  color: var(--text-main);
+}
+
+.compliance-footer {
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+/* ==========================================================================
+   ENTRANCE TRANSITIONS (FADE-IN & STAGGERED REVEAL)
+   ========================================================================== */
+
+@keyframes authFadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-entrance {
+  animation: authFadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.brand-anim-1 {
+  animation: authFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.brand-anim-2 {
+  animation: authFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.brand-anim-3 {
+  animation: authFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.form-anim-1 {
+  animation: authFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.form-anim-2 {
+  animation: authFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+.form-anim-3 {
+  animation: authFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+
+.form-anim-4 {
+  animation: authFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+
